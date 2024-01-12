@@ -1,0 +1,33 @@
+{
+	"name": "URCap Dev",
+	//"dockerComposeFile": "docker-compose.yml",
+	"service": "urcapx-dev",
+	"workspaceFolder": "/workspaces/urcapx-dev",
+	"overrideCommand": false,
+	//"initializeCommand": "docker container rm -f urcapx-dev || true",
+
+	// Use the LOCAL_WORKSPACE_FOLDER environment variable if you need to bind mount local source code into container.
+	"remoteEnv": {
+		"LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	//"postCreateCommand": "docker --version",
+
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [ "ahern.urscript" ],
+			"settings": {
+				// Disable auto port forwarding when user clicks on localhost links in terminal/console. Auto-forwarding
+				// opened URLs with ports in web browser that don't work. More info:
+				// https://github.com/microsoft/vscode-remote-release/issues/6972
+				"remote.forwardOnOpen": false
+			}
+		}
+	},
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "urcapdev"
+}

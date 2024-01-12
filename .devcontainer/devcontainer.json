@@ -1,0 +1,10 @@
+{
+    "build": { "dockerfile": "Dockerfile" },
+//    "forwardPorts": [6080],   
+    "customizations": {
+      "vscode": {
+        "extensions": ["ahern.urscript"]
+      }
+    },
+    "overrideCommand": false
+  }

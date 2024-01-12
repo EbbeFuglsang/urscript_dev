@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  ursim:
+    image: docker.urrd.dk/${URSIM_IMAGE_NAME}:${URSIM_VERSION}
+    container_name: ursim
+    environment:
+      ROBOT_MODEL: ${ROBOT_TYPE}
+      JAVA_TOOL_OPTIONS: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:${REMOTE_JAVA_DEBUG_PORT}
+      URSERVICE_FAKEDEVICE: true
+    init: true
+    privileged: true
+    ports:
+      - "${REMOTE_JAVA_DEBUG_PORT}:${REMOTE_JAVA_DEBUG_PORT}"
+      - "5900:5900"
+      - "6080:6080"
+      - "29999-30004:29999-30004"
+      - "30011-30013:30011-30013"
+      - "30020:30020"
+      - "8080:80"
+    volumes:
+      - type: volume
+        source: ursim-dind-var-lib-docker
+        target: /data/var/lib/docker
+      - ${LOCAL_WORKSPACE_FOLDER}/staging/program:/root/programs
+      - ${LOCAL_WORKSPACE_FOLDER}/staging/urcaps/osgi:/root/.urcaps/zip
+      - ${LOCAL_WORKSPACE_FOLDER}/staging/urcaps:/var/urcaps
+    extra_hosts:
+      - servicegateway:127.0.0.1
+      - ur-dashboard-server:127.0.0.1
+      - urcontrol-primary:127.0.0.1
+      - urcontrol-secondary:127.0.0.1
+      - urcontrol-real-time:127.0.0.1
+      - urcontrol-rtde:127.0.0.1
+      - urcontrol-interpreter:127.0.0.1
+      - urcontrol-primary-read-only:127.0.0.1
+      - urcontrol-secondary-read-only:127.0.0.1
+      - urcontrol-real-time-read-only:127.0.0.1
+      - modbus-tcp:127.0.0.1
+      - profinet:127.0.0.1
+      - ethernet-ip:127.0.0.1
+      - ros2:127.0.0.1
+    networks:
+      - ursim-network
+
+volumes:
+  ursim-dind-var-lib-docker:
+
+networks:
+  ursim-network:
+    name: urcapx-network
+    external: true
