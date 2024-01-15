@@ -14,8 +14,8 @@ FROM universalrobots/ursim_e-series
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 RUN apt-get update && \
-    apt-get -y install --no-install-recommends netcat-traditional
-
+    apt-get -y install --no-install-recommends netcat-traditional && \
+    apt-get -y install git
 
 # Make it possible for polyscope to find uradmin scripts
 ENV PATH "$PATH:/ursim/usr/bin"
