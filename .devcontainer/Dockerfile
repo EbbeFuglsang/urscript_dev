@@ -24,15 +24,16 @@ ENV PATH "$PATH:/ursim/usr/bin"
 ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/urtool-3.0/lib"
 
 # Copy entrypoint script
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
 
-# Web browser VNC viewer
-EXPOSE 6080
-# VNC viewer
-EXPOSE 5900
+
 # Modbus Port
 EXPOSE 502
+# Web browser VNC viewer
+#EXPOSE 6080
+# VNC viewer
+#EXPOSE 5900
 # Interface Ports
 EXPOSE 29999
 EXPOSE 30001-30004
