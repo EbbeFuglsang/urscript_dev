@@ -24,8 +24,8 @@ ENV PATH "$PATH:/ursim/usr/bin"
 ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/urtool-3.0/lib"
 
 # Copy entrypoint script
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
+#COPY entrypoint.sh /entrypoint.sh
+#RUN chmod +x entrypoint.sh
 
 
 # Modbus Port
@@ -43,4 +43,4 @@ EXPOSE 30020
 EXPOSE 50001-50003
 
 # This will start the simulator
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/entrypoint.sh"]
