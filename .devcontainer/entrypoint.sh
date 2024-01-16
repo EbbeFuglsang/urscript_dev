@@ -18,20 +18,20 @@ x11vnc -bg -quiet -forever -shared -display :1 -snapfb >/dev/null 2>/dev/null
 cp -r /urcaps/*.jar /ursim/GUI/bundle/ 2>/dev/null
 
 # find path to daemon run file
-runsvdir=$(find /etc/service/ -name "runsvdir*")
-run_file="$runsvdir/run"
+#runsvdir=$(find /etc/service/ -name "runsvdir*")
+#run_file="$runsvdir/run"
 
 # Correct path in run file and make executable
-mkdir -p /home/root/service
-sed -i 's|/ursim/service|/home/root/service|g' $run_file
-chmod +x $run_file
+#mkdir -p /home/root/service
+#sed -i 's|/ursim/service|/home/root/service|g' $run_file
+#chmod +x $run_file
 
 # Run daemon service
 runsv $runsvdir/ &
 rm -r /ursim/service
 
 # Create webserver interface for vnc
-sed -i 's/$(hostname)/localhost/g' /usr/share/novnc/utils/novnc_proxy
+#sed -i 's/$(hostname)/localhost/g' /usr/share/novnc/utils/novnc_proxy
 /usr/share/novnc/utils/novnc_proxy --vnc localhost:5900 >/dev/null 2>/dev/null &
 
 # Get container ip address

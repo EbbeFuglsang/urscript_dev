@@ -44,3 +44,31 @@ EXPOSE 50001-50003
 
 # This will start the simulator
 #ENTRYPOINT ["/entrypoint.sh"]
+
+RUN runsvdir=$(find /etc/service/ -name "runsvdir*") && \
+    run_file="$runsvdir/run" && \
+    mkdir -p /home/root/service && \
+    sed -i 's|/ursim/service|/home/root/service|g' $run_file && \
+    chmod +x $run_file
+
+ENV runsvdir $runsvdir && \
+    runfile $runfile
+
+
+RUN rm /entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x entrypoint.sh
+
+
+# find path to daemon run file
+#runsvdir=$(find /etc/service/ -name "runsvdir*")
+#run_file="$runsvdir/run"
+
+# Correct path in run file and make executable
+#mkdir -p /home/root/service
+#sed -i 's|/ursim/service|/home/root/service|g' $run_file
+#chmod +x $run_file
+
+# Run daemon service
+#runsv $runsvdir/ &
+#rm -r /ursim/service
